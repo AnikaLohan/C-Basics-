@@ -1,0 +1,1061 @@
+#include <iostream>
+#include <string.h>
+#include <vector>
+#include <string>
+using namespace std;
+
+
+class Registration{
+        
+    public:
+        string reg[100][100];
+        int events[100][100];
+        int size_reg;
+        int flag_size;
+        int flag_display;
+        int p0;
+        int p1;
+        int p2;
+        int p3;
+        int p4;
+        int p5;
+        int p6;
+
+        Registration(){
+            size_reg=0;
+            flag_size=15;
+            flag_display=0;
+            p0=0;
+            p1=0;
+            p2=0;
+            p3=0;
+            p4=0;
+            p5=0;
+            p6=0;
+            string reg1[15][4]={{"VANKY","19","M","KHALSA"},{"SHASHWAT","20","M","HINDU"},{"ANIKA","18","F","MIRANDA"},{"MANAV","20","M","KMC"}
+            ,{"RAVLEEN","20","F","LSR"},{"ARMAAN","19","M","HINDU"},{"SWASTI","17","F","KHALSA"},{"TARLEEN","18","F","HANSRAJ"},{"SAUMYA","21","F","KMC"},
+            {"MAYANK","17","M","HANSRAJ"},{"SAHIL","21","M","KHALSA"},{"DIVYANSH","20","M","KMC"},{"ISHITA","18","F","LSR"},{"DEEPTI","19","F","MIRANDA"},
+            {"HEMENDRA","19","M","KHALSA"}};
+            for(int i=0; i<15; i++){
+                for(int j=0; j<4; j++){
+                    reg[i][j]=reg1[i][j];
+                }
+            }
+            int event1[15][7]={{1,0,0,1,1,1,0},{0,1,1,1,0,0,1},{1,1,1,1,0,0,1},{1,0,0,1,0,1,0},{0,1,1,0,1,1,1},{1,0,1,1,1,1,0},{1,1,0,0,0,1,0},
+            {1,0,0,1,1,0,1},{1,0,0,1,1,1,1},{0,1,1,1,1,0,0},{0,0,1,1,0,1,0},{0,1,0,1,1,0,0},{1,1,0,0,1,1,0},{1,1,1,1,1,0,0},{1,0,0,1,1,0,1}};
+            for(int k=0; k<flag_size; k++){
+                for(int l=0; l<7; l++){
+                    events[k][l]=event1[k][l];
+                }
+            }    
+        }
+        
+        void get(){
+            reg;
+            events;
+        }
+        
+        void input_details(){
+            cout<<"How many participants do you want to enter: "<<endl;
+            cin>>size_reg;
+            flag_size+=size_reg;
+            for(int i=(flag_size-size_reg); i<flag_size; i++){
+                cout<<"Enter details of participant "<<i+1<<":"<<endl;
+                for(int j=0; j<4; j++){
+                    switch(j){
+                        case 0:
+                            cout<<"Enter Name: ";
+                            cin>>reg[i][j];
+                            break;
+                        case 1:
+                            cout<<"Enter Age: ";
+                            cin>>reg[i][j];
+                            break;
+                        case 2:
+                            cout<<"Enter Gender: Type M for male, Type F for Female: ";
+                            cin>>reg[i][j];
+                            break;
+                        case 3:
+                            cout<<"Enter College Name: ";
+                            cin>>reg[i][j];
+                            break;
+                    }
+                }
+            cout<<"Records entered successfully"<<endl;
+            }
+        }
+
+        void input_events(){
+            string name;
+            cout<<"Enter name of participant you want to enter events for: "<<endl;
+            cin>>name;
+            for(int i=0; i<flag_size; i++){
+                if(reg[i][0]==name){
+                    cout<<"Enter Event choice: "<<endl;
+                            cout<<"Type 1 in fron of events participant is participating in and 0 in front of other events: "<<endl;
+                            cout<<"100M: ";     
+                            cin>>events[i][0];
+                            cout<<"200M: ";
+                            cin>>events[i][1];
+                            cout<<"400M: ";
+                            cin>>events[i][2];
+                            cout<<"HURDLES: ";
+                            cin>>events[i][3];
+                            cout<<"OBSTACLES: ";
+                            cin>>events[i][4];
+                            cout<<"4*100M RELAY: ";
+                            cin>>events[i][5];
+                            cout<<"4*200M RELAY: ";
+                            cin>>events[i][6];
+                }
+            }
+            cout<<"Records entered successfully."<<endl;
+        }
+
+        void display_details(){
+            string name;
+            cout<<"Do you want to display details of : 1. Single Participant 2. All Participants"<<endl;
+            cin>>flag_display;
+            if(flag_display==1){
+                cout<<"Enter name in all caps for the participant's details: "<<endl;
+                cin>>name;
+                for(int i=0; i<flag_size; i++){
+                    if(name==reg[i][0]){
+                        cout<<"The details are: "<<endl;
+                        for(int j=0; j<5; j++){
+                            if(j==4){
+                                for(int k=0; k<7; k++){
+                                    if(events[i][k]==1){
+                                        switch(k){
+                                            case 0:
+                                                cout<<"100M, ";
+                                                break;
+                                            case 1:
+                                                cout<<"200M, ";
+                                                break;
+                                            case 2:
+                                                cout<<"400M, ";
+                                                break;
+                                            case 3:
+                                                cout<<"HURDLES, ";
+                                                break;
+                                            case 4:
+                                                cout<<"OBSTACLES, ";
+                                                break;
+                                            case 5:
+                                                cout<<"4*100M RELAY, ";
+                                                break;
+                                            case 6:
+                                                cout<<"4*200M, ";
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                            else{
+                                cout<<reg[i][j]<<"\t";
+                            }
+                            
+                        }
+                        cout<<endl;
+                    }
+                }
+            }
+            else if(flag_display==2){
+                cout<<"The details are: "<<endl;
+                for(int i=0; i<flag_size; i++){
+                    for(int j=0; j<5; j++){
+                        if(j==4){
+                                for(int k=0; k<7; k++){
+                                    if(events[i][k]==1){
+                                        switch(k){
+                                            case 0:
+                                                cout<<"100M, ";
+                                                break;
+                                            case 1:
+                                                cout<<"200M, ";
+                                                break;
+                                            case 2:
+                                                cout<<"400M, ";
+                                                break;
+                                            case 3:
+                                                cout<<"HURDLES, ";
+                                                break;
+                                            case 4:
+                                                cout<<"OBSTACLES, ";
+                                                break;
+                                            case 5:
+                                                cout<<"4*100M RELAY, ";
+                                                break;
+                                            case 6:
+                                                cout<<"4*200M, ";
+                                                break;
+                                        }
+                                    }
+                                }
+                        }
+                        else{
+                            cout<<reg[i][j]<<"\t";
+                        }
+                        
+                    }
+                    cout<<endl;
+                }
+
+            }
+            else{
+                cout<<"Wrong choice enterd"<<endl;
+            }
+        }
+        
+        
+
+        void group_by_event(){
+            int choice;
+            int op;
+            string flag_event;
+            cout<<"100M: "<<endl;
+            int e0=0;
+            int e1=0;
+            int e2=0;
+            int e3=0;
+            int e4=0;
+            int e5=0;
+            int e6=0;
+               for(int i=0;i<flag_size;i++){
+                            if(events[i][0]==1){
+                                for(int j=0; j<5; j++){
+                                if(j==4){
+                                    for(int k=0; k<7; k++){
+                                        if(events[i][k]==1){
+                                            switch(k){
+                                                case 0:
+                                                    cout<<"100M, ";
+                                                    break;
+                                                case 1:
+                                                    cout<<"200M, ";
+                                                    break;
+                                                case 2:
+                                                    cout<<"400M, ";
+                                                    break;
+                                                case 3:
+                                                    cout<<"HURDLES, ";
+                                                    break;
+                                                case 4:
+                                                    cout<<"OBSTACLES, ";
+                                                    break;
+                                                case 5:
+                                                    cout<<"4*100M RELAY, ";
+                                                    break;
+                                                case 6:
+                                                    cout<<"4*200M, ";
+                                                    break;
+                                            }
+                                        }
+                                    }
+                            }
+                            else{
+                                cout<<reg[i][j]<<"\t";
+                            }
+                        }
+                        e0++;
+                        
+                        cout<<endl;
+                        p0=e0;
+                        
+                    }
+                }
+                
+
+                cout<<"200M"<<endl;
+                for(int i=0;i<flag_size;i++){
+                            if(events[i][1]==1){
+                                for(int j=0; j<5; j++){
+                                if(j==4){
+                                    for(int k=0; k<7; k++){
+                                        if(events[i][k]==1){
+                                            switch(k){
+                                                case 0:
+                                                    cout<<"100M, ";
+                                                    break;
+                                                case 1:
+                                                    cout<<"200M, ";
+                                                    break;
+                                                case 2:
+                                                    cout<<"400M, ";
+                                                    break;
+                                                case 3:
+                                                    cout<<"HURDLES, ";
+                                                    break;
+                                                case 4:
+                                                    cout<<"OBSTACLES, ";
+                                                    break;
+                                                case 5:
+                                                    cout<<"4*100M RELAY, ";
+                                                    break;
+                                                case 6:
+                                                    cout<<"4*200M, ";
+                                                    break;
+                                            }
+                                        }
+                                    }
+                            }
+                            else{
+                                cout<<reg[i][j]<<"\t";
+                            }
+                        }
+                        e1++;
+                        p1=e1;
+                        cout<<endl;
+                    }
+                }
+                
+                cout<<"400M"<<endl;
+
+                for(int i=0;i<flag_size;i++){
+                            if(events[i][2]==1){
+                                for(int j=0; j<5; j++){
+                                if(j==4){
+                                    for(int k=0; k<7; k++){
+                                        if(events[i][k]==1){
+                                            switch(k){
+                                                case 0:
+                                                    cout<<"100M, ";
+                                                    break;
+                                                case 1:
+                                                    cout<<"200M, ";
+                                                    break;
+                                                case 2:
+                                                    cout<<"400M, ";
+                                                    break;
+                                                case 3:
+                                                    cout<<"HURDLES, ";
+                                                    break;
+                                                case 4:
+                                                    cout<<"OBSTACLES, ";
+                                                    break;
+                                                case 5:
+                                                    cout<<"4*100M RELAY, ";
+                                                    break;
+                                                case 6:
+                                                    cout<<"4*200M, ";
+                                                    break;
+                                            }
+                                        }
+                                    }
+                            }
+                            else{
+                                cout<<reg[i][j]<<"\t";
+                            }
+                        }
+                        e2++;
+                        p2=e2;
+                        cout<<endl;
+                    }
+                }
+                
+
+
+                cout<<"HURDLES"<<endl;
+
+                for(int i=0;i<flag_size;i++){
+                            if(events[i][3]==1){
+                                for(int j=0; j<5; j++){
+                                if(j==4){
+                                    for(int k=0; k<7; k++){
+                                        if(events[i][k]==1){
+                                            switch(k){
+                                                case 0:
+                                                    cout<<"100M, ";
+                                                    break;
+                                                case 1:
+                                                    cout<<"200M, ";
+                                                    break;
+                                                case 2:
+                                                    cout<<"400M, ";
+                                                    break;
+                                                case 3:
+                                                    cout<<"HURDLES, ";
+                                                    break;
+                                                case 4:
+                                                    cout<<"OBSTACLES, ";
+                                                    break;
+                                                case 5:
+                                                    cout<<"4*100M RELAY, ";
+                                                    break;
+                                                case 6:
+                                                    cout<<"4*200M, ";
+                                                    break;
+                                            }
+                                        }
+                                    }
+                            }
+                            else{
+                                cout<<reg[i][j]<<"\t";
+                            }
+                        }
+                        e3++;
+                        p3=e3;
+                        cout<<endl;
+                    }
+                    }
+                    
+                cout<<"OBSTACLES"<<endl;
+
+                for(int i=0;i<flag_size;i++){
+                            if(events[i][4]==1){
+                                for(int j=0; j<5; j++){
+                                if(j==4){
+                                    for(int k=0; k<7; k++){
+                                        if(events[i][k]==1){
+                                            switch(k){
+                                                case 0:
+                                                    cout<<"100M, ";
+                                                    break;
+                                                case 1:
+                                                    cout<<"200M, ";
+                                                    break;
+                                                case 2:
+                                                    cout<<"400M, ";
+                                                    break;
+                                                case 3:
+                                                    cout<<"HURDLES, ";
+                                                    break;
+                                                case 4:
+                                                    cout<<"OBSTACLES, ";
+                                                    break;
+                                                case 5:
+                                                    cout<<"4*100M RELAY, ";
+                                                    break;
+                                                case 6:
+                                                    cout<<"4*200M, ";
+                                                    break;
+                                            }
+                                        }
+                                    }
+                            }
+                            else{
+                                cout<<reg[i][j]<<"\t";
+                            }
+                        }
+                        e4++;
+                        p4=e4;
+                        cout<<endl;
+                    }
+                }
+                
+                cout<<"4*100M RELAY"<<endl;
+
+                for(int i=0;i<flag_size;i++){
+                            if(events[i][5]==1){
+                                for(int j=0; j<5; j++){
+                                if(j==4){
+                                    for(int k=0; k<7; k++){
+                                        if(events[i][k]==1){
+                                            switch(k){
+                                                case 0:
+                                                    cout<<"100M, ";
+                                                    break;
+                                                case 1:
+                                                    cout<<"200M, ";
+                                                    break;
+                                                case 2:
+                                                    cout<<"400M, ";
+                                                    break;
+                                                case 3:
+                                                    cout<<"HURDLES, ";
+                                                    break;
+                                                case 4:
+                                                    cout<<"OBSTACLES, ";
+                                                    break;
+                                                case 5:
+                                                    cout<<"4*100M RELAY, ";
+                                                    break;
+                                                case 6:
+                                                    cout<<"4*200M, ";
+                                                    break;
+                                            }
+                                        }
+                                    }
+                            }
+                            else{
+                                cout<<reg[i][j]<<"\t";
+                            }
+                        }
+                        e5++;
+                        p5=e5;
+                        cout<<endl;
+                    }
+                }
+                
+                cout<<"4*200M,"<<endl;
+
+                for(int i=0;i<flag_size;i++){
+                            if(events[i][6]==1){
+                                for(int j=0; j<5; j++){
+                                if(j==4){
+                                    for(int k=0; k<7; k++){
+                                        if(events[i][k]==1){
+                                            switch(k){
+                                                case 0:
+                                                    cout<<"100M, ";
+                                                    break;
+                                                case 1:
+                                                    cout<<"200M, ";
+                                                    break;
+                                                case 2:
+                                                    cout<<"400M, ";
+                                                    break;
+                                                case 3:
+                                                    cout<<"HURDLES, ";
+                                                    break;
+                                                case 4:
+                                                    cout<<"OBSTACLES, ";
+                                                    break;
+                                                case 5:
+                                                    cout<<"4*100M RELAY, ";
+                                                    break;
+                                                case 6:
+                                                    cout<<"4*200M, ";
+                                                    break;
+                                            }
+                                        }
+                                    }
+                            }
+                            else{
+                                cout<<reg[i][j]<<"\t";
+                            }
+                        }
+                        e6++;
+                        p6=e6;
+                        cout<<endl;
+                    }
+                
+
+                  
+            }
+     
+ 
+        }
+        
+        void group_by_gender(){
+                string flag_gender;
+                cout<<"Groups on the basis of Gender: "<<endl;
+                cout<<"choose gender: M OR F"<<endl;
+                cin>>flag_gender;
+                for(int i=0; i<flag_size; i++){
+                    if(reg[i][2]==flag_gender){
+                        for(int j=0; j<5; j++){
+                            if(j==4){
+                                for(int k=0; k<7; k++){
+                                    if(events[i][k]==1){
+                                        switch(k){
+                                            case 0:
+                                                cout<<"100M, ";
+                                                break;
+                                            case 1:
+                                                cout<<"200M, ";
+                                                break;
+                                            case 2:
+                                                cout<<"400M, ";
+                                                break;
+                                            case 3:
+                                                cout<<"HURDLES, ";
+                                                break;
+                                            case 4:
+                                                cout<<"OBSTACLES, ";
+                                                break;
+                                            case 5:
+                                                cout<<"4*100M RELAY, ";
+                                                break;
+                                            case 6:
+                                                cout<<"4*200M, ";
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                            else{
+                                cout<<reg[i][j]<<"\t";
+                            }
+                        }
+                        cout<<endl;
+                    }
+                }
+        }   
+
+ void group_by_college(){
+                 string flag_college;
+                cout<<"Groups on the basis of college: "<<endl;
+                cout<<"choose college (in caps):"<<endl;
+                cin>>flag_college;
+                for(int i=0; i<flag_size; i++){
+                    if(reg[i][3]==flag_college){
+                        for(int j=0; j<5; j++){
+                            if(j==4){
+                                for(int k=0; k<7; k++){
+                                    if(events[i][k]==1){
+                                        switch(k){
+                                            case 0:
+                                                cout<<"100M, ";
+                                                break;
+                                            case 1:
+                                                cout<<"200M, ";
+                                                break;
+                                            case 2:
+                                                cout<<"400M, ";
+                                                break;
+                                            case 3:
+                                                cout<<"HURDLES, ";
+                                                break;
+                                            case 4:
+                                                cout<<"OBSTACLES, ";
+                                                break;
+                                            case 5:
+                                                cout<<"4*100M RELAY, ";
+                                                break;
+                                            case 6:
+                                                cout<<"4*200M, ";
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                            else{
+                                cout<<reg[i][j]<<"\t";
+                            }
+                        }
+                        cout<<endl;
+                    }
+                }
+        }   
+
+
+};
+
+
+class Event: public Registration{
+    
+    int graph[100][8];
+    int element;
+    string circle[8]={"A","B","C","D","E","F","G","H"};
+    string Group_events[2]={"4*100M" , "4*200M"};
+    string Solo_events [5]={"100M","200M","400M","HURDLES","OBSTACLES"};
+    public:
+
+    void copy(Registration r){
+        flag_size=r.flag_size;
+        for(int i=0; i<flag_size; i++){
+            for(int j=0; j<4; j++){
+                reg[i][j]=r.reg[i][j];
+            }
+        }
+        for(int k=0; k<flag_size; k++){
+            for(int l=0; l<7; l++){
+                events[k][l]==r.events[k][l];
+            }
+        }
+        p0=r.p0;
+        p1=r.p1;
+        p2=r.p2;
+        p3=r.p3;
+        p4=r.p4;
+        p5=r.p5;
+        p6=r.p6;
+    }
+
+    void Euler_path(){
+        int vertices{0};
+        string array[100]; //temp array for storing 
+        int count{0};
+        cout<<"Choose event: 0. 100M,  1. 200M, 2. 400M, 3. HURDLES, 4. OBSTACLES, 5. 4*100M REALY, 6. 4*200M RELAY"<<endl;
+        cin>>element; 
+        for(int i=0; i<flag_size; i++){
+            if(events[i][element]==1){
+                //cout<<reg[i][0];
+                array[count]=reg[i][0];
+                count++;
+                //cout<<"count is: "<<count<<endl;
+            }
+        }
+       // for(int i=0;i<count;i++){
+             //  cout<<array[i]<<endl;
+        //}
+        if (element==0){
+            vertices=2;
+        }
+        if(element==1){
+            vertices=4;
+        }
+        if(element==2){
+            vertices=8;
+        }
+        if(element==3){
+            vertices=8;
+        }
+        if(element==4){
+            vertices=8;
+        }
+        if(element==5){
+            vertices=2;
+        }
+        if(element==6){
+            vertices=4;
+        }
+        cout<<"WRITE THE NUMBER OF TIMES THE ATHLETE PASSED THE EDGE. ENTER 0 INSTEAD."<<endl;
+	    if(count!=0){
+            for(int i=0;i<count;i++){
+                cout<<"Enter for "<<array[i]<<endl;
+	            for(int a=0;a<vertices;a++){
+	                cout<<"POINT : "<<circle[a]<<endl;
+	                cin>>graph[i][a];
+                    for(int b=vertices; b<8; b++){
+                        graph[i][b]=0;
+                    }
+	            } 
+	        }
+        }
+        cout<<"Records entered successfully."<<endl;
+        int c;
+        int j=0;
+        int counter;
+        for(int a=0;a<count;a++){
+            c=0;
+            counter=0;
+        if (element==0){
+            for(int i=0;i<2;i++){
+                if(graph[a][i]>=1){
+                
+                   c+=graph[a][i];
+                   counter++;  
+                
+                }
+                else{
+                    break;
+                }
+
+            }
+            if(c==2 && counter==2){
+                cout<<array[a]<<": Event completed successfully."<<endl;                   
+            }  
+            else if(c>2 && counter==2){
+                cout<<array[a]<<": Even completed but taken longer path."<<endl;
+            }
+              else{
+                cout<<array[a]<<": Event not completed."<<endl;
+            }
+        }
+
+ 
+        if (element==1){
+            for(int i=0;i<4;i++){
+                if(graph[a][i]>=1){
+                   
+                   c+=graph[a][i];  
+                   counter++;
+                }
+                else{
+                    break;
+                }
+
+            }
+            if(c==4 && counter==4){
+                cout<<array[a]<<": Event completed successfully."<<endl;
+            }
+            else if(c>4 && counter==4){
+                cout<<array[a]<<": Even completed but taken longer path."<<endl;
+            }
+            else{
+                cout<<array[a]<<": Event not completed."<<endl;
+            }
+        }
+
+        if (element==2){
+            for(int i=0;i<8;i++){
+                if(graph[a][i]>=1){
+                   c+=graph[a][i];  
+                   counter++;
+                }
+                else{
+                    break;
+                }
+
+            }
+            if(c==8 && counter==8){
+                cout<<array[a]<<": Event completed successfully."<<endl;
+            }
+            else if(c>8 && counter==8){
+                cout<<array[a]<<": Even completed but taken longer path."<<endl;
+            }
+            else{
+                cout<<array[a]<<": Event not completed."<<endl;
+            }
+        }
+        
+        if (element==3){
+            for(int i=0;i<8;i++){
+                if(graph[a][i]>=1){
+                   c+=graph[a][i]; 
+                   counter++; 
+                }
+                else{
+                    break;
+                }
+
+            }
+            if(c==8 && counter==8){
+                cout<<array[a]<<": Event completed successfully."<<endl;
+            }
+            else if(c>8 && counter==8){
+                cout<<array[a]<<": Even completed but taken longer path."<<endl;
+            }
+            else{
+                cout<<array[a]<<": Event not completed."<<endl;
+            }
+        }
+
+
+        if (element==4){
+            for(int i=0;i<8;i++){
+                if(graph[a][i]>=1){
+                   c+=graph[a][i];
+                   counter++;  
+                }
+                else{
+                    break;
+                }
+
+            }
+            if(c==8 && counter==8){
+                cout<<array[a]<<": Event completed successfully."<<endl;
+            }
+            else if(c>8 && counter==8){
+                cout<<array[a]<<": Even completed but taken longer path."<<endl;
+            }
+            else{
+                cout<<array[a]<<": Event not completed."<<endl;
+            }
+        }
+
+
+        if (element==5){
+            for(int i=0;i<2;i++){
+                if(graph[a][i]>=1){
+                   c+=graph[a][i];  
+                   counter++;
+                }
+                else{
+                    break;
+                }
+
+            }
+            if(c==2 && counter==2){
+                cout<<array[a]<<": Event completed successfully."<<endl;
+            }
+            else if(c>2 && counter==2){
+                cout<<array[a]<<": Even completed but taken longer path."<<endl;
+            }
+            else{
+                cout<<array[a]<<": Event not completed."<<endl;
+            }
+        }
+
+        if (element==6){
+            for(int i=0;i<4;i++){
+                if(graph[a][i]==1){
+                   c+=graph[a][i]; 
+                   counter++; 
+                }
+                else{
+                    break;
+                }
+
+            }
+            if(c==4 && counter==4){
+                cout<<array[a]<<": Event completed successfully."<<endl;
+            }
+            else if(c>4 && counter==4){
+                cout<<array[a]<<": Even completed but taken longer path."<<endl;
+            }
+            else{
+                cout<<array[a]<<": Event not completed."<<endl;
+            }
+        }
+
+        }
+
+	}
+    
+
+    int numberOfMatches() {
+        int n;
+        int op;
+        cout<<"Which event do you want to check the rounds for: 0.100M 1.200M 2.400M 3.HURDLES 4.OBSTACLES 5.4*100M 6.4*200M"<<endl;
+        cin>>op;
+        int ct=0;
+        int round =0;
+        if(op==0){
+            n=p0;
+            cout<<"Number of participants are: "<<p0<<endl;
+        }
+        else if(op==1){
+            n=p1;
+            cout<<"Number of participants are: "<<p1<<endl;
+        }
+        else if(op==2){
+            n=p2;
+            cout<<"Number of participants are: "<<p2<<endl;
+        }
+        else if(op==3){
+            n=p3;
+            cout<<"Number of participants are: "<<p3<<endl;
+        }
+        else if(op==4){
+            n=p4;
+            cout<<"Number of participants are: "<<p4<<endl;
+        }
+        else if(op==5){
+            n=p5;
+            cout<<"Number of participants are: "<<p5<<endl;
+        }
+        else if(op==6){
+            n=p6;
+            cout<<"Number of participants are: "<<p6<<endl;
+        }
+        else{
+         cout<<"Incorrect entry"<<endl;
+        }
+        cout<<"Number of participants in one heat: 2"<<endl;
+        while(n>=1)
+        {
+            if(n%2==0)
+            { 
+                ct+=n/2; n=n/2;            // ct is for total number of matches being displayed in the end
+                cout<<"Round "<<++round<<" ,matches "<<n<<endl;
+            }
+            else
+                {ct+=n/2 + 1; n=(n/2+1);
+                    cout<<"Round "<<++round<<" : Matches "<<n<<endl;
+                }
+            if(n==1) break; 
+        }
+        cout<<"Total number of matches are: "<<ct<<endl;
+        return ct;
+    }   
+  
+};
+
+
+
+int main(){
+  
+    Registration r;
+    Event e;
+    e.copy(r);
+    int y=1;
+    int op;
+    cout<<"-------------------------------------------------------------------------------------"<<endl;
+    cout<<"Never say never becasue limits, like fears, are often just illusions."<<endl;
+    cout<<"Greetings. We the members of Khalsa Sports Society are delighted to"<<endl;
+    cout<<"announce the inauguration of our first-ever annual Sports Carnival"<<endl;
+    cout<<"which will be held from 22 July to 24 July in the sports ground of our"<<endl;
+    cout<<"esteemed college. The carnival encourages young students to give up"<<endl;
+    cout<<"lethargy and embrace the spirit of youthfullness by taking part in"<<endl;
+    cout<<"various track events that are being organized by our society. We have"<<endl;
+    cout<<"already received registrations from a whooping 15 candidates and are excited"<<endl;
+    cout<<"to have you come up for the same. So, what are you waiting for?"<<endl;
+    cout<<"Hurry up and become a part of this amazing sports fiesta!!!"<<endl;
+    cout<<"-------------------------------------------------------------------------------------"<<endl;
+    cout<<endl;
+    cout<<"-------------------------------------------------------------------------------------"<<endl;
+    cout<<"Please keep in mind the following details while registering: "<<endl;
+    cout<<"1. Enter all the information in CAPS."<<endl;
+    cout<<"2. Don't give spaces in between words."<<endl;
+    cout<<"3. Choose valid choice from the given options."<<endl;
+    cout<<"-------------------------------------------------------------------------------------"<<endl;
+    cout<<endl;
+    cout<<"-------------------------------------------------------------------------------------"<<endl;
+    cout<<"Additional Information: The price for registration is Rs. 20 per event. Since"<<endl;
+    cout<<"there are only a few seats left, particiapnts once registed cannot be removed. Moreover,"<<endl;
+    cout<<"the cancellation charge is 100% so no refund will be provided. Therefore, please enter"<<endl;
+    cout<<"the details carefully."<<endl;
+    cout<<"-------------------------------------------------------------------------------------"<<endl;
+    cout<<endl;
+    cout<<"-------------------------------------------------------------------------------------"<<endl;
+    while(y==1){
+        cout<<"Please choose from the following menu: "<<endl;
+        cout<<"1. Add a participant"<<endl;
+        cout<<"2. Add events for a participant"<<endl;
+        cout<<"3. Display Participants"<<endl;
+        cout<<"4. Display Groups"<<endl;
+        cout<<"5. Check fixture rounds for events"<<endl;
+        cout<<"6. Enter event track for participants"<<endl;
+        cout<<"7.Exit"<<endl;
+        cout<<"Enter your choice: "<<endl;
+        cin>>op;
+        switch(op){
+            case 1:
+                r.input_details();
+                break;
+            case 2:
+                r.input_events();
+                break;
+            case 3:
+                r.display_details();
+                break;
+            case 4:
+                int flag1;
+                cout<<"How do you want to view the groups: 1. Gender 2. Events 3. College"<<endl;
+                cin>>flag1;
+                switch(flag1){
+                    case 1:
+                        r.group_by_gender();
+                        break;
+                    case 2:
+                        r.group_by_event();
+                        break;
+                    case 3:
+                        r.group_by_college();
+                        break;
+                    default:
+                        cout<<"Wrong choice entered"<<endl;
+                }
+                break;
+            case 5:
+                
+                r.group_by_event();
+                e.copy(r);
+                e.numberOfMatches();
+                break;
+            case 6:
+                cout<<"The track is of a total of 400M divided into eight edges of 50M each."<<endl;
+                cout<<"The edges are A, B, C, D, E, F, G and H respectively from start to finish."<<endl;
+                e.Euler_path();
+                break;
+            case 7:
+                y=0;
+                break;
+            default:
+                cout<<"Wrong choice entered"<<endl;
+                break;
+        }
+        
+        if(op!=7){
+            cout<<"Do you want to continue?: 1. Yes  0. No"<<endl;
+            cin>>y;
+            while(y!=1 && y!=0){
+                cout<<"Wrong choice entered. Enter choice again"<<endl;
+                cout<<"Do you want to continue?: 1. Yes  0. No"<<endl;
+                cin>>y;
+            }
+        }
+    }
+    cout<<"-------------------------------------------------------------------------------------"<<endl;
+    cout<<"Thanks a lot for registering for the event. We will be eagerly waiting for you!!!"<<endl;
+    cout<<"-------------------------------------------------------------------------------------"<<endl;
+    return 0; 
+ 
+    
+}
+
+    

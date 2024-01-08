@@ -1,0 +1,119 @@
+
+#include<iostream>
+using namespace std;
+class Path
+{
+	public:
+	int v;
+	int e;
+	int n;
+	int source;
+	int dest;
+	int arr1[10][10];
+	int arr2[10][10];
+	int mul[10][10];
+	void getdata1();
+	void getdata2();
+	void copy();
+	void copycontent();
+	void multiply();
+	void calculatepath();
+	void showdata();
+	void matrixmul();
+};
+void Path::getdata1()
+{
+	cout<<endl<<"Enter the number of vertices ";
+	cin>>v;
+	cout<<endl<<"Enter the number of edges ";
+	cin>>e;
+	cout<<endl<<"Enter 1 or 0: ";
+	for(int i = 1; i <= v; i++)
+	{
+		for(int j = 1; j <= v; j++)
+			cin>>arr1[i][j];
+	}
+}
+void Path::getdata2()
+{
+	cout<<endl<<"Enter the Length of path ";
+	cin>>n;
+	cout<<endl<<"Enter the source from which paths need to be counted (Less than "<<v<<"): ";
+	cin>>source;
+	cout<<endl<<"Enter the destination to which paths need to be counted (Less than "<<v<<"): ";
+	cin>>dest;
+}
+void Path::copy()
+{
+	for(int i = 1; i <= v; i++)
+		for(int j = 1; j <= v; j++)
+			arr2[i][j] = arr1[i][j];
+	return;
+}
+void Path::copycontent()
+{
+	for(int i = 1; i <= v; i++)
+		for(int j = 1; j <= v; j++)
+			arr2[i][j] = mul[i][j];
+	return;
+}
+void Path::multiply()
+{
+	for(int i = 1; i <= v; i++)
+	{
+		for(int j = 1; j <= v; j++)
+		{
+			mul[i][j] = 0;
+			for(int k = 1; k <= v; k++)
+				mul[i][j] += arr1[i][k]*arr2[k][j];
+		}	
+	}
+	return;
+}
+
+
+//
+void Path::matrixmul()
+{
+	copy();
+	for(int r = 0; r < n-1; r++)
+	{
+		multiply();
+		copycontent();
+	}
+	cout<<endl<<"The matrix arr1 ^"<<n<<" is: "<<endl;
+	for(int i = 1; i <= v; i++)
+	{
+		for(int j = 1; j <= v; j++)
+			cout<<mul[i][j]<<" ";
+		cout<<endl;
+	}
+		
+	return;
+}
+void Path::calculatepath()
+{
+	cout<<endl<<"Number of path of length = "<<n<<" between "<<source<<" and "<<dest<<" is: "<<mul[source][dest]<<endl;
+	return;
+}
+void Path::showdata()
+{
+	cout<<endl<<"The adjacenecy matrix for the graph is "<<endl;
+	for(int i = 1; i <= v; i++)
+	{
+		for(int j = 1; j <= v; j++)
+			cout<<arr1[i][j]<<" ";
+		cout<<endl;
+	}
+	return;
+}
+int main()
+{
+	Path p;
+	p.getdata1();
+	p.showdata();
+	p.getdata2();
+	p.matrixmul();
+	p.calculatepath();
+	return 0;
+}

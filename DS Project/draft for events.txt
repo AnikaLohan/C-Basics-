@@ -1,0 +1,20 @@
+//make a circle 
+//track froremd
+//make edges out of the circle
+//rectangle formed: e1 e2 e4 e4
+// check if it starts at abcd : 200m pure
+//400 m twice 
+//make directed graph
+//identity : name *edges : 0,1
+//take user input
+//edegs all cover since its euler
+//end with e1 if it styarts with e1
+// all those who followed
+//100m : e1 e2
+//200: e1 e2 e3 e4
+//400: make different function. e1 e2 e3 e4 *4
+//hurdle : 
+//groups make 4 : extract group by college
+
+
+
