@@ -1,3 +1,4 @@
+//find the power of a number using inbuilt power function .
 #include<iostream>
 using namespace std;
 
